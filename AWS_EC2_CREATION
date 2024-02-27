@@ -1,0 +1,28 @@
+#define the your provider
+provider "aws"{
+   region = "give ur region"
+}
+# Define the number of instances
+variable "ec2_instance_count" {
+  default = 5
+}
+
+# Define the tags for ec2 instances
+variable "ec2_instance_tags" {
+  default = [
+    { Name = "Test1", Env = "Test" },
+    { Name = "Test2", Env = "Test" },
+    { Name = "Test3", Env = "Test" }
+  ]
+}
+
+# Create EC2 instances
+resource "aws_instance" "ec2_instances" {
+  count = var.ec2_instance_count
+
+  ami           = "give ur ami_id"  # replace with ur AMI ID
+  instance_type = "t2.micro"
+
+  # Set the tags for each instance based on the index
+  tags = var.ec2_instance_tags[count.index]
+}
