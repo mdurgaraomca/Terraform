@@ -16,13 +16,13 @@ variable "ec2_instance_tags" {
   ]
 }
 
-# Create EC2 instances
+# Creating EC2 instances
 resource "aws_instance" "ec2_instances" {
   count = var.ec2_instance_count
 
-  ami           = "give ur ami_id"  # replace with ur AMI ID
+  ami = "give ur ami_id"  # replace with ur AMI ID
   instance_type = "t2.micro"
 
-  # Set the tags for each instance based on the index
+  # Set the tags for each ec2 instance
   tags = var.ec2_instance_tags[count.index]
 }
